@@ -1,38 +1,46 @@
-name: Weekly Scrape
+name: Daily Industry Update
 
+# Run on every push to main (so you can manually trigger by pushing)
+# and on a daily schedule (e.g. every night at midnight UTC)
 on:
+  push:
+    branches:
+      - main
   schedule:
-    - cron: '0 5 * * 1'    # every Monday at 05:00 UTC
-  workflow_dispatch: {}    # allows manual runs
+    - cron: '0 0 * * *'   # every day at 00:00 UTC
+  workflow_dispatch:     # also allows manual “Run workflow” via the UI
 
 jobs:
-  scrape:
+  update-data:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      # 1) Check out your repo
+      - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Set up Python
+      # 2) Set up Python
+      - name: Set up Python 3.8
         uses: actions/setup-python@v4
         with:
           python-version: '3.8'
 
+      # 3) Install all dependencies in requirements.txt
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests beautifulsoup4
+          pip install -r requirements.txt
 
-      - name: Run scraper
+      # 4) Run your scraper to regenerate all JSON files
+      - name: Run all scrapers
         run: python scrape_all.py
 
-      - name: Commit updated data
+      # 5) Commit & push only if data changed
+      - name: Commit & push updated JSON
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/*.json
-          git commit -m "chore: update contacts via scraper" || echo "No changes to commit"
-
+          git diff --cached --quiet || git commit -m "chore: auto-update industry data"
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
