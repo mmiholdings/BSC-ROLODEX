@@ -37,5 +37,3 @@ jobs:
       - name: Skip notice
         if: steps.req-file.outputs.exists == 'false'
         run: echo "› requirements.txt not found — dependency install skipped"
-
-      # …add your other build/test steps here…
