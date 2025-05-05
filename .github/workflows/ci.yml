@@ -1,0 +1,41 @@
+﻿name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Check for requirements.txt
+        id: req-file
+        run: |
+          if [ -f "./requirements.txt" ]; then
+            echo "exists=true" >> 
+          else
+            echo "exists=false" >> 
+          fi
+
+      - name: Install dependencies
+        if: steps.req-file.outputs.exists == 'true'
+        run: pip install -r requirements.txt
+
+      - name: Skip notice
+        if: steps.req-file.outputs.exists == 'false'
+        run: echo "› requirements.txt not found — dependency install skipped"
+
+      # …add your other build/test steps here…
