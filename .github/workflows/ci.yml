@@ -1,4 +1,4 @@
-﻿name: CI
+name: CI
 
 on:
   push:
@@ -25,9 +25,9 @@ jobs:
         id: req-file
         run: |
           if [ -f "./requirements.txt" ]; then
-            echo "exists=true" >> 
+            echo "exists=true" >> $GITHUB_OUTPUT
           else
-            echo "exists=false" >> 
+            echo "exists=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Install dependencies
@@ -37,5 +37,3 @@ jobs:
       - name: Skip notice
         if: steps.req-file.outputs.exists == 'false'
         run: echo "› requirements.txt not found — dependency install skipped"
-
-      # …add your other build/test steps here…
