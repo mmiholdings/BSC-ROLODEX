@@ -1,35 +1,17 @@
-# BSC ROLODEX
+# ScriptForge Coming Soon Page
 
-This repository contains the Rolodex of contacts for Both Sides of the Camera Studios.
+This repository now serves a branded **ScriptForge** "coming soon" landing page for the 2026 launch.
 
-## Data files
-- `data/screenwriters.json`: Screenwriter’s database (over 400 agents)
-- `data/film.json`: Film database (665 producers & production companies)
-- `data/tv-series.json`: TV Series database (455 producers & production companies)
-- `data/screenwriter-film.json`: Screenwriter & Film database (1050+ agents & producers)
-- `data/screenwriter-tv.json`: Screenwriter & TV database (850+ agents & producers)
+## What is included
+- A responsive hero section with the ScriptForge brand treatment.
+- Launch messaging focused on the future of AI-powered Film & TV production.
+- A live countdown timer targeting **January 1, 2026 (UTC)**.
 
-## Usage
-1. Push this repo to GitHub under username `mmiholdings` with the name `BSC-ROLODEX`.
-2. In Netlify, click **New site from Git**, connect your GitHub account, and select `BSC-ROLODEX`.
-3. No build command is required; the site will deploy as a static site.
+## Local usage
+Because this is a static site, you can open `index.html` directly in a browser or serve it with any static server.
 
-## Fill in contacts
-Each JSON file follows this schema:
-```json
-{
-  "meta": {
-    "description": "...",
-    "count": 0
-  },
-  "contacts": [
-    {
-      "name": "Full Name",
-      "company": "Company Name",
-      "email": "email@example.com",
-      "phone": "+1-XXX-XXX-XXXX",
-      "notes": ""
-    }
-  ]
-}
+Example:
+```bash
+python3 -m http.server 8080
 ```
+Then visit `http://localhost:8080`.

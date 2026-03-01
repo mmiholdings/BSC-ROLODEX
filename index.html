@@ -3,52 +3,219 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BSC ROLODEX</title>
+  <title>ScriptForge | Coming Soon</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 2em; }
-    select, table { margin-top: 1em; width: 100%; }
-    table { border-collapse: collapse; }
-    th, td { border: 1px solid #ccc; padding: 0.5em; }
+    :root {
+      --bg-1: #040816;
+      --bg-2: #0a1531;
+      --text: #f4f6fb;
+      --muted: #c8cde0;
+      --accent: #f7b500;
+      --accent-2: #22d3ee;
+      --card-bg: rgba(16, 22, 44, 0.74);
+      --card-border: rgba(247, 181, 0, 0.36);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(70% 80% at 50% 10%, rgba(34, 211, 238, 0.20), transparent 60%),
+        linear-gradient(140deg, var(--bg-1), var(--bg-2));
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: min(920px, 92vw);
+      text-align: center;
+      padding: 2.2rem 1rem 3rem;
+    }
+
+    .eyebrow {
+      margin: 0;
+      font-size: clamp(1rem, 2.2vw, 1.5rem);
+      text-transform: uppercase;
+      letter-spacing: 0.48rem;
+      color: var(--accent);
+      opacity: 0.95;
+    }
+
+    h1 {
+      margin: 1.35rem auto 1rem;
+      max-width: 18ch;
+      line-height: 1.04;
+      font-size: clamp(2rem, 8vw, 6rem);
+      font-weight: 800;
+    }
+
+    .highlight {
+      color: var(--accent);
+      text-shadow: 0 0 28px rgba(247, 181, 0, 0.26);
+    }
+
+    .copy {
+      margin: 0 auto;
+      max-width: 33ch;
+      color: var(--muted);
+      font-size: clamp(1.1rem, 2.8vw, 2rem);
+      line-height: 1.5;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin: 2.2rem auto 2.4rem;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .brand .forge {
+      color: var(--accent);
+      text-shadow: 0 0 20px rgba(247, 181, 0, 0.35);
+    }
+
+    .logo {
+      width: 1.05em;
+      height: 1.05em;
+      border: 2px solid var(--accent);
+      border-radius: 0.2em;
+      position: relative;
+      box-shadow: 0 0 20px rgba(247, 181, 0, 0.2);
+    }
+
+    .logo::before,
+    .logo::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+    }
+
+    .logo::before {
+      top: 18%;
+      width: 58%;
+      height: 2px;
+    }
+
+    .logo::after {
+      top: 38%;
+      width: 58%;
+      height: 2px;
+      box-shadow: 0 8px 0 var(--accent);
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(110px, 1fr));
+      gap: clamp(0.6rem, 1.8vw, 1.2rem);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .time-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: clamp(1rem, 2vw, 1.3rem) 0.6rem;
+      backdrop-filter: blur(3px);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+    }
+
+    .time-value {
+      display: block;
+      color: var(--accent);
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      margin-bottom: 0.55rem;
+    }
+
+    .time-label {
+      color: rgba(218, 224, 241, 0.86);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: clamp(0.72rem, 1.2vw, 1rem);
+    }
+
+    .footnote {
+      margin-top: 1.3rem;
+      color: rgba(222, 227, 243, 0.62);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 680px) {
+      .countdown {
+        grid-template-columns: repeat(2, minmax(130px, 1fr));
+      }
+
+      .eyebrow {
+        letter-spacing: 0.24rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>BSC ROLODEX</h1>
-  <label for="category">Select a category:</label>
-  <select id="category">
-    <option value="">--Choose--</option>
-    <option value="screenwriters.json">Screenwriter's Database</option>
-    <option value="film.json">Film Database</option>
-    <option value="tv-series.json">TV Series Database</option>
-    <option value="screenwriter-film.json">Screenwriter & Film Database</option>
-    <option value="screenwriter-tv.json">Screenwriter & TV Database</option>
-  </select>
-  <div id="contacts"></div>
-<script>
-async function loadContacts(filename) {
-  try {
-    const resp = await fetch(`data/${filename}`);
-    const json = await resp.json();
-    const { contacts } = json;
-    if (!contacts || contacts.length === 0) {
-      document.getElementById('contacts').innerHTML = '<p>No contacts available.</p>';
-      return;
-    }
-    let html = '<table><thead><tr><th>Name</th><th>Company</th><th>Email</th><th>Phone</th><th>Notes</th></tr></thead><tbody>';
-    contacts.forEach(c => {
-      html += `<tr><td>${c.name}</td><td>${c.company}</td><td><a href="mailto:${c.email}">${c.email}</a></td><td>${c.phone}</td><td>${c.notes}</td></tr>`;
-    });
-    html += '</tbody></table>';
-    document.getElementById('contacts').innerHTML = html;
-  } catch (e) {
-    document.getElementById('contacts').innerHTML = '<p>Error loading contacts.</p>';
-  }
-}
+  <main class="container">
+    <p class="eyebrow">● Coming Soon — 2026</p>
+    <h1>The Future of <span class="highlight">Film &amp; TV</span> Production</h1>
+    <p class="copy">The world&apos;s first AI-powered Film &amp; TV Studio. From blank page to investor-ready package — ScriptForge is the command center every storyteller deserves.</p>
 
-document.getElementById('category').addEventListener('change', function() {
-  const file = this.value;
-  if (file) loadContacts(file);
-  else document.getElementById('contacts').innerHTML = '';
-});
-</script>
+    <div class="brand" aria-label="ScriptForge">
+      <span class="logo" aria-hidden="true"></span>
+      <span>Script<span class="forge">Forge</span></span>
+    </div>
+
+    <section class="countdown" aria-label="Countdown to ScriptForge launch">
+      <article class="time-box">
+        <span id="days" class="time-value">00</span>
+        <span class="time-label">Days</span>
+      </article>
+      <article class="time-box">
+        <span id="hours" class="time-value">00</span>
+        <span class="time-label">Hours</span>
+      </article>
+      <article class="time-box">
+        <span id="minutes" class="time-value">00</span>
+        <span class="time-label">Min</span>
+      </article>
+      <article class="time-box">
+        <span id="seconds" class="time-value">00</span>
+        <span class="time-label">Sec</span>
+      </article>
+    </section>
+    <p class="footnote">Countdown target: January 1, 2026 (UTC)</p>
+  </main>
+
+  <script>
+    const launchDate = new Date('2026-01-01T00:00:00Z').getTime();
+
+    function updateCountdown() {
+      const now = Date.now();
+      const distance = Math.max(launchDate - now, 0);
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((distance / (1000 * 60)) % 60);
+      const seconds = Math.floor((distance / 1000) % 60);
+
+      document.getElementById('days').textContent = String(days).padStart(2, '0');
+      document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
 </body>
 </html>
