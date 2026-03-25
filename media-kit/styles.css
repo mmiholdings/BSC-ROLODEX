@@ -2,18 +2,13 @@
   --bg: #0f0f10;
   --cream: #efebe4;
   --text: #f7f5f1;
-  --ink: #141414;
   --muted: #c9c1b5;
   --gold: #c7a86a;
-  --bronze: #a28358;
 }
 
 * { box-sizing: border-box; }
 
-@page {
-  size: 8.5in 11in;
-  margin: 0;
-}
+@page { size: 8.5in 11in; margin: 0; }
 
 body {
   margin: 0;
@@ -22,10 +17,7 @@ body {
   color: var(--text);
 }
 
-.deck {
-  width: 8.5in;
-  margin: 0 auto;
-}
+.deck { width: 8.5in; margin: 0 auto; }
 
 .page {
   position: relative;
@@ -40,37 +32,14 @@ body {
 
 .cover-image,
 .cover-image img,
-.cover-overlay {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
+.cover-overlay { position: absolute; inset: 0; width: 100%; height: 100%; }
 
-.cover-image img,
-.media-frame img,
-.stacked-images img,
-.image-grid img,
-.contact-photo img,
-.stats-inset img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-.cover-overlay {
-  background: linear-gradient(140deg, rgba(0, 0, 0, 0.8) 20%, rgba(0, 0, 0, 0.35) 70%);
-}
+.cover-overlay { background: linear-gradient(140deg, rgba(0, 0, 0, 0.85) 20%, rgba(0, 0, 0, 0.4) 72%); }
 
-.content {
-  position: relative;
-  z-index: 2;
-}
-
-.cover .content {
-  padding: 1.05in 0.9in;
-  width: 80%;
-}
+.content { position: relative; z-index: 2; }
+.cover .content { padding: 1.05in 0.9in; width: 82%; }
 
 .kicker {
   margin: 0 0 0.2in;
@@ -87,53 +56,36 @@ h1, h2 {
   letter-spacing: 0.06em;
 }
 
-h1 {
-  font-size: 0.74in;
-  line-height: 0.84;
-}
+h1 { font-size: 0.74in; line-height: 0.84; }
 
 h2 {
-  font-size: 0.48in;
+  font-size: 0.46in;
   color: var(--cream);
   margin-bottom: 0.28in;
   border-bottom: 1px solid color-mix(in srgb, var(--gold), transparent 35%);
   padding-bottom: 0.12in;
 }
 
-.subtitle,
-.tagline,
-p,
-li,
-dd {
+p, li, dd {
   font-size: 0.15in;
   line-height: 1.55;
   letter-spacing: 0.01em;
 }
 
-.subtitle { margin: 0.2in 0 0.1in; color: var(--cream); font-weight: 500; }
-.tagline { margin: 0; max-width: 5in; color: var(--muted); }
+.subtitle { margin: 0.2in 0 0.1in; color: var(--cream); font-weight: 500; font-size: 0.16in; }
+.tagline { margin: 0; max-width: 5in; color: var(--muted); font-size: 0.15in; }
 
-.two-col {
-  display: grid;
-  grid-template-columns: 40% 60%;
-  gap: 0.35in;
-}
-
+.two-col { display: grid; grid-template-columns: 40% 60%; gap: 0.35in; }
 .two-col.reverse { grid-template-columns: 60% 40%; }
 
 .media-frame {
-  border: 1px solid color-mix(in srgb, var(--gold), transparent 25%);
+  border: 1px solid color-mix(in srgb, var(--gold), transparent 22%);
   padding: 0.06in;
   height: calc(11in - 1.6in);
 }
 
-.media-frame img { display: block; }
-
+.metrics { background: linear-gradient(160deg, #101010 10%, #1b1918 100%); }
 .full { width: 100%; }
-
-.metrics {
-  background: linear-gradient(160deg, #101010 10%, #1a1918 100%);
-}
 
 .metric-grid {
   display: grid;
@@ -158,13 +110,13 @@ dd {
 
 .metric-grid p { margin: 0.06in 0 0; color: var(--muted); text-transform: uppercase; font-size: 0.1in; }
 
-.stats-inset {
+.side-photo {
   position: absolute;
   right: 0.8in;
   bottom: 0.8in;
   width: 2.2in;
-  height: 3.2in;
-  border: 1px solid color-mix(in srgb, var(--gold), transparent 40%);
+  height: 2.8in;
+  border: 1px solid color-mix(in srgb, var(--gold), transparent 38%);
   padding: 0.05in;
 }
 
@@ -176,17 +128,15 @@ dd {
 
 .image-grid {
   display: grid;
-  margin-top: 0.2in;
-  grid-template-columns: repeat(4, 1fr);
+  margin-top: 0.22in;
+  grid-template-columns: repeat(3, 1fr);
   gap: 0.1in;
-  height: 2.5in;
+  height: 2.4in;
 }
 
 .image-grid img { border: 1px solid color-mix(in srgb, var(--gold), transparent 55%); }
 
-.credits {
-  background: linear-gradient(180deg, #111 0%, #171616 100%);
-}
+.credits { background: linear-gradient(180deg, #111 0%, #171616 100%); }
 
 .stacked-images {
   display: grid;
@@ -205,7 +155,7 @@ dd {
 
 .contact {
   display: grid;
-  grid-template-columns: 44% 56%;
+  grid-template-columns: 42% 58%;
   gap: 0.35in;
   align-items: center;
 }
@@ -214,6 +164,16 @@ dd {
   height: calc(11in - 1.6in);
   border: 1px solid color-mix(in srgb, var(--gold), transparent 35%);
   padding: 0.05in;
+}
+
+.contact-inset {
+  position: absolute;
+  right: 0.8in;
+  bottom: 0.8in;
+  width: 1.55in;
+  height: 1.95in;
+  border: 1px solid color-mix(in srgb, var(--gold), transparent 45%);
+  padding: 0.04in;
 }
 
 dl { margin: 0.15in 0 0.3in; }
