@@ -1,0 +1,57 @@
+{
+  "hypotheses": [
+    {
+      "key": "demand_breakout",
+      "label": "Demand breakout within 48h",
+      "feature_weights": {
+        "search_intent": 1.4,
+        "checkout_rate": 1.1,
+        "refund_risk": -0.9,
+        "narrative_velocity": 0.6
+      },
+      "confirming_signs": [
+        "Search intent grows before social mention growth",
+        "Checkout conversion remains above trailing 7-day average"
+      ],
+      "invalidators": [
+        "Refund risk rises above threshold for two windows"
+      ],
+      "time_window": "24-48h"
+    },
+    {
+      "key": "false_breakout",
+      "label": "Headline spike with weak conversion",
+      "feature_weights": {
+        "search_intent": 0.2,
+        "checkout_rate": -1.2,
+        "refund_risk": 1.0,
+        "narrative_velocity": 1.1
+      },
+      "confirming_signs": [
+        "Mentions spike while checkout rate drops",
+        "Return/refund complaints rise"
+      ],
+      "invalidators": [
+        "Checkout conversion trend reverses positive"
+      ],
+      "time_window": "12-36h"
+    }
+  ],
+  "signals": [
+    {"key": "search_intent", "value": 0.81, "reliability": 0.9},
+    {"key": "checkout_rate", "value": 0.62, "reliability": 0.95},
+    {"key": "refund_risk", "value": -0.28, "reliability": 0.75},
+    {"key": "narrative_velocity", "value": 0.55, "reliability": 0.8},
+    {"key": "volatility", "value": 0.34},
+    {"key": "liquidity", "value": 0.12},
+    {"key": "institutional_trust", "value": 0.2}
+  ],
+  "receipts": [
+    {
+      "hypothesis_key": "demand_breakout",
+      "first_flag_at": "2026-03-01T07:00:00+00:00",
+      "confirmed_at": "2026-03-01T18:00:00+00:00",
+      "baseline_confirmed_at": "2026-03-02T02:00:00+00:00"
+    }
+  ]
+}
