@@ -115,3 +115,7 @@ Edit
 - **Better Institutional Flow Analysis**: Tracks **SmartFlow, Dark Pools, and NOF activity**.
 - **Superior Readability & Structure**: Professional **GitHub markdown formatting**.
 - **Clearer AI Execution Pipeline**: Step-by-step **installation & execution instructions**.
+## Experimental Modules
+
+- `origin/` — ORIGIN probability engine prototype for regime detection, ranked picks, and replay receipts.
+
