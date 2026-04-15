@@ -41,6 +41,7 @@ docker compose up -d postgres redis n8n
 pip install -r requirements.txt
 uvicorn api.app.main:app --reload
 ./scripts/run_real_cycle.sh
+# Open interface: http://localhost:8000
 ```
 
 ## Real Data Flow (no fake data)
@@ -60,3 +61,8 @@ uvicorn api.app.main:app --reload
 - errors are visible
 
 Fail mode: retry in n8n + alert Telegram.
+
+
+## Interface
+- Operator UI: `http://localhost:8000/`
+- API docs: `http://localhost:8000/docs`

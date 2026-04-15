@@ -1,3 +1,6 @@
+from pathlib import Path
+
+from fastapi.responses import FileResponse
 from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
 
@@ -19,6 +22,12 @@ from api.app.schemas.opportunity import CycleResult
 configure_logging()
 app = FastAPI(title='MOORE MONEY SYSTEM', version='0.1.0')
 Base.metadata.create_all(bind=engine)
+
+
+@app.get('/')
+def dashboard():
+    dashboard_file = Path(__file__).resolve().parent / 'static_dashboard.html'
+    return FileResponse(dashboard_file)
 
 
 @app.get('/health')

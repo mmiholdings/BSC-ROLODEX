@@ -33,7 +33,11 @@ psql "$DATABASE_URL" -f scripts/bootstrap_db.sql
 - Configure Telegram credential
 - Activate workflow
 
-## 7) Run first live cycle
+## 7) Open interface
+- Operator UI: `http://localhost:8000/`
+- API docs: `http://localhost:8000/docs`
+
+## 8) Run first live cycle
 ```bash
 ./scripts/run_real_cycle.sh
 ```
