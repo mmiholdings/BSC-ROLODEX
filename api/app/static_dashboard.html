@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MOORE MONEY SYSTEM</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; background:#0f172a; color:#e2e8f0; }
+    .card { background:#111827; padding:16px; border-radius:12px; margin-bottom:16px; }
+    button { background:#22c55e; color:#052e16; border:none; padding:10px 14px; border-radius:8px; font-weight:700; cursor:pointer; margin-right:8px; }
+    button.secondary { background:#38bdf8; color:#082f49; }
+    pre { background:#020617; padding:12px; border-radius:8px; overflow:auto; }
+    .muted { color:#94a3b8; }
+  </style>
+</head>
+<body>
+  <h1>MOORE MONEY SYSTEM — Operator Interface</h1>
+  <p class="muted">Run live cycles, monitor health, and track profit from one screen.</p>
+
+  <div class="card">
+    <h2>Actions</h2>
+    <button onclick="runCycle()">Run Live Cycle</button>
+    <button class="secondary" onclick="loadHealth()">Refresh Health</button>
+    <button class="secondary" onclick="loadProfit()">Refresh Profit</button>
+    <button class="secondary" onclick="loadLearning()">Refresh Learning</button>
+  </div>
+
+  <div class="card"><h3>Cycle Result</h3><pre id="cycle">No cycle run yet.</pre></div>
+  <div class="card"><h3>Health</h3><pre id="health">Loading...</pre></div>
+  <div class="card"><h3>Profit</h3><pre id="profit">Loading...</pre></div>
+  <div class="card"><h3>Learning</h3><pre id="learn">Loading...</pre></div>
+
+  <script>
+    async function jsonCall(url, opts={}) {
+      const r = await fetch(url, opts);
+      const t = await r.text();
+      try { return JSON.stringify(JSON.parse(t), null, 2); }
+      catch { return t; }
+    }
+
+    async function runCycle() {
+      document.getElementById('cycle').textContent = 'Running...';
+      document.getElementById('cycle').textContent = await jsonCall('/run-cycle', { method:'POST' });
+      await Promise.all([loadHealth(), loadProfit(), loadLearning()]);
+    }
+
+    async function loadHealth() {
+      document.getElementById('health').textContent = await jsonCall('/health');
+    }
+
+    async function loadProfit() {
+      document.getElementById('profit').textContent = await jsonCall('/profit');
+    }
+
+    async function loadLearning() {
+      document.getElementById('learn').textContent = await jsonCall('/learn');
+    }
+
+    Promise.all([loadHealth(), loadProfit(), loadLearning()]);
+  </script>
+</body>
+</html>

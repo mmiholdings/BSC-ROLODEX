@@ -1,0 +1,24 @@
+playbooks:
+  - id: quick_copywriting
+    trigger: ["copywriter", "cold email", "sales email"]
+    task_type: copywriting
+    price_rule: "quote = supplier_cost * 1.8"
+    supplier: "upwork_saved_freelancer_copy_1"
+    execution_steps:
+      - "Collect requirements"
+      - "Send to supplier template"
+      - "Deliver first draft in <6h"
+    kill_conditions:
+      - "buyer no response >24h"
+      - "scope expands >2 revisions"
+  - id: quick_design
+    trigger: ["logo", "thumbnail", "one-pager"]
+    task_type: design
+    price_rule: "quote = supplier_cost * 2.0"
+    supplier: "fiverr_saved_gig_designer_1"
+    execution_steps:
+      - "Confirm style"
+      - "Place order"
+      - "QA before delivery"
+    kill_conditions:
+      - "buyer requests full branding package"
